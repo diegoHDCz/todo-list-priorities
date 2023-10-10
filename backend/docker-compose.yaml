@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:latest
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: todolist
+      POSTGRES_USER: postgre
+      POSTGRES_PASSWORD: postgre
+    ports:
+      - "5432:5432"
+
