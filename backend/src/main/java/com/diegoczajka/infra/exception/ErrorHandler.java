@@ -21,17 +21,17 @@ public class ErrorHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity error400(MethodArgumentNotValidException ex) {
-        var erros = ex.getFieldErrors();
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    public ResponseEntity error422(MethodArgumentNotValidException ex) {
+        var errors = ex.getFieldErrors();
 
-        return ResponseEntity.badRequest().body(erros.stream().map(error ->
+        return ResponseEntity.unprocessableEntity().body(errors.stream().map(error ->
                         new ValidationError(error.getField(), error.getDefaultMessage()))
                 .collect(Collectors.toList()));
     }
 
     @ExceptionHandler(ValidationException.class)
-    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity BAD_REQUEST(ValidationException ex) {
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
@@ -49,6 +49,13 @@ public class ErrorHandler {
             this(error.getField(), error.getDefaultMessage());
         }
 
+        public String getField() {
+            return field;
+        }
+
+        public String getMessage() {
+            return message;
+        }
     }
 
 }

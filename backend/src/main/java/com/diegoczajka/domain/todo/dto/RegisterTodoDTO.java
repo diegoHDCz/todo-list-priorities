@@ -2,7 +2,10 @@ package com.diegoczajka.domain.todo.dto;
 
 import com.diegoczajka.domain.todo.Assignee;
 import com.diegoczajka.domain.todo.Priority;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,12 +22,14 @@ public class RegisterTodoDTO {
     String title;
     @NotBlank(message = "Description must not be blank")
     String description;
-    @NotBlank(message = "Assignee must not be blank")
+    @NotNull(message = "Assignee must not be blank")
     Assignee assignee;
-    @NotBlank(message = "Priority must not be blank")
+    @NotNull(message = "Priority must not be blank")
     Priority priority;
-    @NotBlank(message = "Deadline must not be blank")
+
+    @NotNull
+    @FutureOrPresent(message = "cannot register past date")
     LocalDateTime deadline;
 
 
-    }
+}
