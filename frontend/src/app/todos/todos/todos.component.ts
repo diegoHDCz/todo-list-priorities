@@ -9,12 +9,23 @@ import { Todo } from '../model/todo';
   styleUrls: ['./todos.component.scss'],
 })
 export class TodosComponent {
-  todos: Observable<Todo[]>;
+  todos: Todo[]= [];
 
   displayedColumns = ['id', 'title', 'assignee', 'action'];
   constructor(private todosService: TodosService) {
-    this.todos = this.todosService.list();
+
+ this.todosService.list().forEach(data=>{
+ if(data){
+  this.todos= data.content
+ }
+})
+
+
   }
 
-  ngOnInit(): void {}
+
+  ngOnInit(): void {
+    console.log("onInit")
+    console.log(this.todos)
+  }
 }

@@ -1,9 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, tap } from 'rxjs';
+import { Observable, catchError, of, tap } from 'rxjs';
 import { MessagesService } from 'src/app/services/messages.service';
 
 import { Todo } from '../model/todo';
+import { ListTodoDTO } from '../model/listTodoDto';
 
 @Injectable({
   providedIn: 'root',
@@ -20,12 +21,16 @@ export class TodosService {
   ) {}
 
   private log(message: string) {
-    this.messageService.add(`HeroSerivce: ${message}`);
+    this.messageService.add(`TodosService: ${message}`);
   }
-  list(): Observable<Todo[]> {
-    return this.httpClient
-      .get<Todo[]>(this.API)
-      .pipe(tap((todos) => todos));
+  list(): Observable<ListTodoDTO> {
+
+  return  this.httpClient.get<ListTodoDTO>(this.API).pipe(
+  tap((_)=>console.log(_.content),
+  catchError(this.handleError<ListTodoDTO[]>('todoService',[]))
+  ))
+
+
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
