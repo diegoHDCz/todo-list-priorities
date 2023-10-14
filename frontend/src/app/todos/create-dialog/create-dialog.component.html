@@ -1,0 +1,71 @@
+
+<div class="container">
+  <header>
+    <h2>Criar Tarefa</h2>
+  </header>
+  <div class="content">
+    <form (ngSubmit)="createTodo()">
+      <div class="row">
+        <div class="inputbox">
+          <label for="title">Título</label>
+          <input
+            [(ngModel)]="todo.title"
+            id="title"
+            placeholder="Title"
+            name="title"
+            required
+          />
+        </div>
+        <div class="inputbox">
+          <label for="description">Descrição</label>
+          <input
+            [(ngModel)]="todo.description"
+            id="description"
+            placeholder="Description"
+            name="description"
+          />
+        </div>
+        <div class="inputbox">
+          <label for="priority">Prioridade</label>
+          <select
+            [(ngModel)]="todo.priority"
+            id="priority"
+            name="priority"
+            required
+          >
+            <option value="HIGH">Alta</option>
+            <option value="MEDIUM">Média</option>
+            <option value="LOW">Baixa</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="inputbox">
+          <label for="assignee">Responsável</label>
+          <select
+            [(ngModel)]="todo.assignee"
+            id="assignee"
+            name="assignee"
+            required
+          >
+            <option value="JOAO">João</option>
+            <option value="ANTONIO">Antônio</option>
+          </select>
+        </div>
+        <div class="inputbox">
+          <label for="deadline">Prioridade</label>
+          <input
+            [(ngModel)]="todo.deadline"
+            type="date"
+            placeholder="Deadline"
+            name="deadline"
+            required
+          />
+        </div>
+      </div>
+      <div class="buttoAlgn">
+        <button mat-raised-button color="primary" type="submit">Salvar</button>
+      </div>
+    </form>
+  </div>
+</div>

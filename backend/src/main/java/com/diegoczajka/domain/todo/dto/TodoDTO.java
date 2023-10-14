@@ -25,6 +25,17 @@ public class TodoDTO {
     private Priority priority;
     private LocalDateTime deadline;
 
+    public TodoDTO(TodoList todoList) {
+
+        this.id = todoList.getId();
+        this.title = todoList.getTitle();
+        this.description = todoList.getDescription();
+        this.assignee = todoList.getAssignee();
+        this.priority = todoList.getPriority();
+        this.deadline = todoList.getDeadline();
+
+    }
+
     public static TodoDTO toDto(TodoList todo) {
         return TodoDTO.builder()
                 .id(todo.getId())
@@ -35,4 +46,5 @@ public class TodoDTO {
                 .deadline(todo.getDeadline())
                 .build();
     }
+
 }

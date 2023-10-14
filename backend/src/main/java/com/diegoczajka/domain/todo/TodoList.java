@@ -1,5 +1,6 @@
 package com.diegoczajka.domain.todo;
 
+import com.diegoczajka.domain.todo.dto.ConcludeDTO;
 import com.diegoczajka.domain.todo.dto.RegisterTodoDTO;
 import com.diegoczajka.domain.todo.dto.UpdateTodoDTO;
 import jakarta.persistence.*;
@@ -52,4 +53,9 @@ public class TodoList {
             this.deadline = data.getDeadline();
         }
     }
+
+    public void concludeTodo() {
+        this.active = false;
+    }
 }
+

@@ -1,7 +1,7 @@
 <mat-card>
   <mat-card-content>
     <div class="btn">
-      <button mat-raised-button color="primary">Criar nova tarefa</button>
+      <button mat-raised-button color="primary" (click)="openDialog()">Criar nova tarefa</button>
   </div>
     <mat-toolbar color="primary">
       <span>Listar tarefas</span>
@@ -25,11 +25,26 @@
         <td mat-cell *matCellDef="let todo">{{ todo.assignee }}</td>
       </ng-container>
 
+      <ng-container matColumnDef="description" hidden>
+        <th mat-header-cell *matHeaderCellDef hidden>Descrição</th>
+        <td mat-cell *matCellDef="let todo" hidden>{{ todo.description }}</td>
+      </ng-container>
+      <ng-container matColumnDef="priority" hidden>
+        <th mat-header-cell *matHeaderCellDef hidden>Prioridade</th>
+        <td mat-cell *matCellDef="let todo" hidden>{{ todo.priority }}</td>
+      </ng-container>
+      <ng-container matColumnDef="deadline" hidden>
+        <th mat-header-cell *matHeaderCellDef hidden>Data Limite</th>
+        <td mat-cell *matCellDef="let todo" hidden>{{ todo.deadline }}</td>
+      </ng-container>
+
       <!-- Action Buttons Column -->
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef>Ações</th>
         <td mat-cell *matCellDef="let todo">
-          <span class="action">Editar</span> | <span class="action">Excluir</span> | <span class="action">Concluir</span>
+          <span class="action" (click)="openDialogEdit(todo)">Editar</span>
+           | <span class="action" (click)="onDeleteTodo(todo)">Excluir</span>
+           | <span class="action" (click)="onConcludeTodo(todo)">Concluir</span>
         </td>
       </ng-container>
 

@@ -1,0 +1,54 @@
+.container{
+  display: flex;
+  overflow-x: hidden;
+  flex-direction: column;
+}
+h2{
+  font-weight: bold;
+  font-size: 2rem;
+  height: auto;
+  margin: 1rem 0;
+}
+.content{
+  padding: 3rem;
+  display:flex;
+  flex-direction: column;
+}
+.row {
+  display: flex;
+  width: 100%;
+
+}
+
+header{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-height: 1rem;
+}
+.inputbox {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem;
+}
+input,select{
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  align-items: center;
+  min-width: 10rem;
+
+}
+button {
+  padding: 1rem;
+  align-items: center;
+}
+.buttoAlgn{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 100%;
+  margin: 1rem;
+}

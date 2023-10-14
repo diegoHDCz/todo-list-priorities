@@ -4,6 +4,6 @@ export interface Todo {
   description: string;
   priority: string;
   assignee: string;
-  deadline: Date;
+  deadline: string;
   active: boolean;
 }

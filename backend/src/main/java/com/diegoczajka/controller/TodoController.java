@@ -1,11 +1,8 @@
 package com.diegoczajka.controller;
 
-import com.diegoczajka.domain.todo.dto.RegisterTodoDTO;
+import com.diegoczajka.domain.todo.dto.*;
 import com.diegoczajka.domain.todo.TodoList;
 import com.diegoczajka.domain.todo.TodoListRepository;
-import com.diegoczajka.domain.todo.dto.ListTodoDTO;
-import com.diegoczajka.domain.todo.dto.UpdateTodoDTO;
-import com.diegoczajka.domain.todo.dto.TodoDTO;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +31,8 @@ public class TodoController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ListTodoDTO>> list(@PageableDefault(size = 10, sort = {"id"}) Pageable pagenation) {
-        var page = repository.findAll(pagenation).map(ListTodoDTO::new);
+    public ResponseEntity<Page<TodoDTO>> list(@PageableDefault(size = 10, sort = {"id"}) Pageable pagenation) {
+        var page = repository.findAllByActive(true,pagenation).map(TodoDTO::new);
         return ResponseEntity.ok(page);
     }
 
@@ -46,6 +43,15 @@ public class TodoController {
         todo.updateData(data);
 
         return ResponseEntity.ok(TodoDTO.toDto(todo));
+    }
+
+    @PatchMapping
+    @Transactional
+    public ResponseEntity conclude(@RequestBody ConcludeDTO data){
+        var todo = repository.getReferenceById(data.getId());
+        todo.concludeTodo();
+
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
