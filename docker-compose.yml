@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  angular-app:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    depends_on:
+      - spring-app
+    networks:
+      - mynetwork
+
+  spring-app:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres-db
+    networks:
+      - mynetwork
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/todolist
+      SPRING_DATASOURCE_USERNAME: postgre
+      SPRING_DATASOURCE_PASSWORD: postgre
+
+  postgres-db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    networks:
+      - mynetwork
+    environment:
+      POSTGRES_DB: todolist
+      POSTGRES_USER: postgre
+      POSTGRES_PASSWORD: postgre
+
+networks:
+  mynetwork:
